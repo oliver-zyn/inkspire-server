@@ -31,7 +31,7 @@ public class ProductAttribute {
   private String type;
 
   @NotNull
-  private String value;
+  private String attributeValue;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

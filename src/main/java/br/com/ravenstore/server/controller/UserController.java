@@ -2,7 +2,6 @@ package br.com.ravenstore.server.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,21 +31,14 @@ public class UserController {
   public ResponseEntity<GenericResponse> createUser(@RequestBody @Valid UserDTO userDTO) {
     userService.save(modelMapper.map(userDTO, User.class));
 
-    return ResponseEntity.ok(new GenericResponse("User saved!"));
+    return ResponseEntity.ok(new GenericResponse("Usuário salvo com sucesso!"));
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-    User user = userService.findOne(id);
-    UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-    return ResponseEntity.ok(userDTO);
-  }
-
-  @PutMapping("/{id}")
+  @PutMapping("{id}")
   public ResponseEntity<GenericResponse> updateUser(@PathVariable Long id, @RequestBody @Valid UserDTO userDTO) {
     User updatedUser = userService.findOne(id);
     modelMapper.map(userDTO, updatedUser);
     userService.save(updatedUser);
-    return ResponseEntity.ok(new GenericResponse("User updated successfully!"));
+    return ResponseEntity.ok(new GenericResponse("Usuário atualizado com sucesso!"));
   }
 }
