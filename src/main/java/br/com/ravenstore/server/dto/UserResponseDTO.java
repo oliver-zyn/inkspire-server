@@ -1,6 +1,7 @@
-package br.com.ravenstore.server.security.dto;
+package br.com.ravenstore.server.dto;
 
 import br.com.ravenstore.server.model.User;
+import br.com.ravenstore.server.security.dto.AuthorityResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

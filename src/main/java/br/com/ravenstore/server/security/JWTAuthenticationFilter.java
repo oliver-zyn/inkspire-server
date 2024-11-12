@@ -1,8 +1,8 @@
 package br.com.ravenstore.server.security;
 
+import br.com.ravenstore.server.dto.UserResponseDTO;
 import br.com.ravenstore.server.model.User;
 import br.com.ravenstore.server.security.dto.AuthenticationResponse;
-import br.com.ravenstore.server.security.dto.UserResponseDTO;
 import br.com.ravenstore.server.service.AuthService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

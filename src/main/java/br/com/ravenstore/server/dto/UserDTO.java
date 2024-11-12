@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
+  private Long id;
+
   @NotNull
   private String name;
 
@@ -40,6 +42,7 @@ public class UserDTO {
   private String phoneNumber;
 
   public void toDto(User user) {
+    this.id = user.getId();
     this.name = user.getName();
     this.email = user.getEmail();
     this.password = user.getPassword();
@@ -50,6 +53,7 @@ public class UserDTO {
 
   public User fromDto() {
     User user = new User();
+    user.setId(id);
     user.setName(this.name);
     user.setEmail(this.email);
     user.setPassword(this.password);
