@@ -32,6 +32,9 @@ public class ProductSkuDTO {
   @NotNull
   private Integer quantity;
 
+  @NotNull
+  private Boolean isDefault;
+
   public void toDto(ProductSku sku) {
     this.id = sku.getId();
     this.product = sku.getProduct();
@@ -40,6 +43,7 @@ public class ProductSkuDTO {
     this.imageUrl = sku.getImageUrl();
     this.price = sku.getPrice();
     this.quantity = sku.getQuantity();
+    this.isDefault = sku.getIsDefault();
   }
 
   public ProductSku fromDto() {
@@ -51,6 +55,18 @@ public class ProductSkuDTO {
     sku.setImageUrl(this.imageUrl);
     sku.setPrice(this.price);
     sku.setQuantity(this.quantity);
+    sku.setIsDefault(isDefault);
     return sku;
+  }
+
+  public ProductSkuDTO(ProductSku sku) {
+    this.id = sku.getId();
+    this.product = sku.getProduct();
+    this.sizeAttribute = sku.getSizeAttribute();
+    this.colorAttribute = sku.getColorAttribute();
+    this.imageUrl = sku.getImageUrl();
+    this.price = sku.getPrice();
+    this.quantity = sku.getQuantity();
+    this.isDefault = sku.getIsDefault();
   }
 }

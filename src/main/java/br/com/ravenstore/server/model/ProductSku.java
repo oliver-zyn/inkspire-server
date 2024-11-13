@@ -3,6 +3,9 @@ package br.com.ravenstore.server.model;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +34,7 @@ public class ProductSku {
 
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false)
+  @JsonIgnore
   private Product product;
 
   @ManyToOne
@@ -49,6 +53,9 @@ public class ProductSku {
 
   @NotNull
   private Integer quantity;
+
+  @NotNull
+  private Boolean isDefault;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

@@ -28,7 +28,11 @@ public class AddressController {
     return new AddressResponseDTO(address);
   }
 
-  @GetMapping("/user/{userId}")
+  private Address convertToEntity(AddressDTO addressDTO) {
+    return modelMapper.map(addressDTO, Address.class);
+  }
+
+  @GetMapping("user/{userId}")
   public ResponseEntity<List<AddressResponseDTO>> findAllByUserId(@PathVariable Long userId) {
     List<AddressResponseDTO> addresses = addressService.findByUserId(userId).stream()
         .map(this::convertToResponseDto)
@@ -36,7 +40,7 @@ public class AddressController {
     return ResponseEntity.ok(addresses);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("{id}")
   public ResponseEntity<AddressResponseDTO> findOne(@PathVariable Long id) {
     Address address = addressService.findOne(id);
     if (address != null) {
@@ -51,7 +55,7 @@ public class AddressController {
     return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(savedAddress));
   }
 
-  @PutMapping("/{id}")
+  @PutMapping("{id}")
   public ResponseEntity<AddressResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AddressDTO addressDTO) {
     Address existingAddress = addressService.findOne(id);
     if (existingAddress == null) {
@@ -63,14 +67,9 @@ public class AddressController {
     return ResponseEntity.ok(convertToResponseDto(updatedAddress));
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     addressService.delete(id);
     return ResponseEntity.noContent().build();
   }
-
-  private Address convertToEntity(AddressDTO addressDTO) {
-    return modelMapper.map(addressDTO, Address.class);
-  }
 }
-

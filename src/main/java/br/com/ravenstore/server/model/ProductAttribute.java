@@ -28,7 +28,7 @@ public class ProductAttribute {
   private Long id;
 
   @NotNull
-  private String type;
+  private String attributeType;
 
   @NotNull
   private String attributeValue;

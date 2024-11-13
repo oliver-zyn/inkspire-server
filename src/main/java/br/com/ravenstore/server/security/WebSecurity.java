@@ -56,6 +56,7 @@ public class WebSecurity {
                 .requestMatchers(antMatcher(HttpMethod.POST, "/api/users/**")).permitAll()
                 .requestMatchers(antMatcher("/error/**")).permitAll()
                 .requestMatchers(antMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.GET, "/api/products/**")).permitAll()
                 .anyRequest().authenticated()
         );
         http.authenticationManager(authenticationManager)

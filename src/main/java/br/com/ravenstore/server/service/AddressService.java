@@ -25,10 +25,6 @@ public class AddressService {
 
   public List<Address> findByUserId(Long userId) {
     return addressRepository.findByUserId(userId);
-}
-
-  public List<Address> findAll() {
-    return addressRepository.findAll();
   }
 
   public void delete(Long id) {

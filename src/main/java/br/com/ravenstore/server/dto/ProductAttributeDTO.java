@@ -15,14 +15,14 @@ public class ProductAttributeDTO {
 
   public void toDto(ProductAttribute attribute) {
     this.id = attribute.getId();
-    this.type = attribute.getType();
+    this.type = attribute.getAttributeType();
     this.value = attribute.getAttributeValue();
   }
 
   public ProductAttribute fromDto() {
     ProductAttribute attribute = new ProductAttribute();
     attribute.setId(this.id);
-    attribute.setType(this.type);
+    attribute.setAttributeType(this.type);
     attribute.setAttributeValue(this.value);
     return attribute;
   }
