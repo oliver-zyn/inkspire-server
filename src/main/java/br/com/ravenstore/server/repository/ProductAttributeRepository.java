@@ -7,4 +7,3 @@ import br.com.ravenstore.server.model.ProductAttribute;
 @Repository
 public interface ProductAttributeRepository extends JpaRepository<ProductAttribute, Long> {
 }
-

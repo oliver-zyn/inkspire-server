@@ -18,14 +18,14 @@ public class ProductResponseDTO {
   private Long id;
   private String name;
   private String description;
-  private Long categoryId;
+  private CategoryDTO categoryDTO;
   private List<ProductSku> skus;
 
   public ProductResponseDTO(Product product) {
     this.id = product.getId();
     this.name = product.getName();
     this.description = product.getDescription();
-    this.categoryId = product.getCategory().getId();
+    this.categoryDTO = new CategoryDTO(product.getCategory().getId(), product.getCategory().getName(), product.getCategory().getImageUrl());
     this.skus = product.getSkus();
   }
 }

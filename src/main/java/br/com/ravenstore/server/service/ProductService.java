@@ -34,8 +34,8 @@ public class ProductService {
     return productRepository.findAll(sort);
   }
 
-  public Page<Product> filterProductsPaginated(Long categoryId, String color, String size, Double minPrice, Double maxPrice, Pageable pageable) {
-    return productRepository.findFilteredProductsPaginated(categoryId, color, size, minPrice, maxPrice, pageable);
+  public Page<Product> filterProductsPaginated(List<Long> categoryIds, List<Long> themeIds, String color, String size, Double minPrice, Double maxPrice, Pageable pageable) {
+    return productRepository.findFilteredProductsPaginated(categoryIds, themeIds, color, size, minPrice, maxPrice, pageable);
   }
 
 }

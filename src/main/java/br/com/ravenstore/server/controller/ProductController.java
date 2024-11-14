@@ -50,7 +50,8 @@ public class ProductController {
       @RequestParam int size,
       @RequestParam(required = false) String order,
       @RequestParam(required = false) Boolean asc,
-      @RequestParam(required = false) Long categoryId,
+      @RequestParam(required = false) List<Long> categoryIds,
+      @RequestParam(required = false) List<Long> themeIds,
       @RequestParam(required = false) String color,
       @RequestParam(required = false) String sizeAttr,
       @RequestParam(required = false) Double minPrice,
@@ -63,7 +64,7 @@ public class ProductController {
     }
 
     return ResponseEntity.ok(productService.filterProductsPaginated(
-      categoryId, color, sizeAttr, minPrice, maxPrice, pageRequest).map(this::convertToListResponseDto));
+      categoryIds, themeIds, color, sizeAttr, minPrice, maxPrice, pageRequest).map(this::convertToListResponseDto));
   }
 
   @GetMapping("/{id}")

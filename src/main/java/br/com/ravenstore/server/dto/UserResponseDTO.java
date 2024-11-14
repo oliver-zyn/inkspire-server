@@ -17,11 +17,13 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserResponseDTO {
 
+    private Long id;
     private String name;
     private String email;
     private Set<AuthorityResponseDTO> authorities;
 
     public UserResponseDTO(User user) {
+        this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.authorities = new HashSet<>();

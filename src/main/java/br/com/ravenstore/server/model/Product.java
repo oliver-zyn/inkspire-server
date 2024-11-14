@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,6 +45,7 @@ public class Product {
 
   @ManyToOne
   @JoinColumn(name = "category_id", nullable = false)
+  @JsonIgnore
   private Category category;
 
   @CreationTimestamp
@@ -59,5 +63,6 @@ public class Product {
       joinColumns = @JoinColumn(name = "product_id"),
       inverseJoinColumns = @JoinColumn(name = "theme_id")
   )
+  @JsonIgnore
   private List<Theme> themes;
 }

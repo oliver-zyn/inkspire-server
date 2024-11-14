@@ -58,15 +58,4 @@ public class ProductSkuDTO {
     sku.setIsDefault(isDefault);
     return sku;
   }
-
-  public ProductSkuDTO(ProductSku sku) {
-    this.id = sku.getId();
-    this.product = sku.getProduct();
-    this.sizeAttribute = sku.getSizeAttribute();
-    this.colorAttribute = sku.getColorAttribute();
-    this.imageUrl = sku.getImageUrl();
-    this.price = sku.getPrice();
-    this.quantity = sku.getQuantity();
-    this.isDefault = sku.getIsDefault();
-  }
 }

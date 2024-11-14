@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class AddressResponseDTO {
 
 	private Long id;
-	private Long userId;
+	private UserResponseDTO userResponseDTO;
 	private String state;
 	private String city;
 	private String street;
@@ -23,7 +23,7 @@ public class AddressResponseDTO {
 
 	public AddressResponseDTO(Address address) {
 		this.id = address.getId();
-		this.userId = address.getUser().getId();
+		this.userResponseDTO = new UserResponseDTO(address.getUser());
 		this.state = address.getState();
 		this.city = address.getCity();
 		this.street = address.getStreet();
