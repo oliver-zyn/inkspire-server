@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,14 +33,6 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
-  private User user;
-
-  @ManyToOne
-  @JoinColumn(name = "shipping_address_id", nullable = false)
-  private Address shippingAddress;
-
   @NotNull
   private String paymentMethod;
 
@@ -48,7 +42,15 @@ public class Order {
   @NotNull
   private Double total;
 
-  @OneToMany(mappedBy = "order")
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "shipping_address_id", nullable = false)
+  private Address shippingAddress;
+
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
   private List<OrderItem> orderItems;
 
   @CreationTimestamp

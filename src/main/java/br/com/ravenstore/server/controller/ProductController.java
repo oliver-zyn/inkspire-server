@@ -67,7 +67,7 @@ public class ProductController {
       categoryIds, themeIds, color, sizeAttr, minPrice, maxPrice, pageRequest).map(this::convertToListResponseDto));
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("{id}")
   public ResponseEntity<ProductResponseDTO> findOne(@PathVariable Long id) {
     Product product = productService.findOne(id);
     if (product == null) {

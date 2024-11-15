@@ -18,7 +18,7 @@ public class ProductListResponseDTO {
   private Long id;
   private String name;
   private String description;
-  private CategoryDTO categoryDTO;
+  private CategoryDTO category;
   private ProductSku defaultSku;
   private List<ThemeDTO> themes;
 
@@ -26,7 +26,7 @@ public class ProductListResponseDTO {
     this.id = product.getId();
     this.name = product.getName();
     this.description = product.getDescription();
-    this.categoryDTO = new CategoryDTO(product.getCategory().getId(), product.getCategory().getName(), product.getCategory().getImageUrl());
+    this.category = new CategoryDTO(product.getCategory());
     this.defaultSku = product.getSkus().stream().filter(ProductSku::getIsDefault).findFirst().orElse(null);
     this.themes = product.getThemes().stream().map(theme -> new ThemeDTO(theme.getId(), theme.getName())).collect(Collectors.toList());
   }

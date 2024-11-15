@@ -30,10 +30,6 @@ public class Address {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
-  private User user;
-
   @NotNull
   private String state;
 
@@ -50,6 +46,10 @@ public class Address {
   
   @NotNull
   private String zipCode;
+
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

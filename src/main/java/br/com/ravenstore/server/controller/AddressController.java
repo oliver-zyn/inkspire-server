@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.ravenstore.server.dto.AddressDTO;
-import br.com.ravenstore.server.dto.AddressResponseDTO;
 import br.com.ravenstore.server.model.Address;
 import br.com.ravenstore.server.service.AddressService;
 import jakarta.validation.Valid;
@@ -24,8 +23,8 @@ public class AddressController {
     this.modelMapper = modelMapper;
   }
 
-  private AddressResponseDTO convertToResponseDto(Address address) {
-    return new AddressResponseDTO(address);
+  private AddressDTO convertToResponseDto(Address address) {
+    return modelMapper.map(address, AddressDTO.class);
   }
 
   private Address convertToEntity(AddressDTO addressDTO) {
@@ -33,37 +32,37 @@ public class AddressController {
   }
 
   @GetMapping("user/{userId}")
-  public ResponseEntity<List<AddressResponseDTO>> findAllByUserId(@PathVariable Long userId) {
-    List<AddressResponseDTO> addresses = addressService.findByUserId(userId).stream()
+  public ResponseEntity<List<AddressDTO>> findAllByUserId(@PathVariable Long userId) {
+    List<AddressDTO> addresses = addressService.findByUserId(userId).stream()
         .map(this::convertToResponseDto)
         .collect(Collectors.toList());
     return ResponseEntity.ok(addresses);
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<AddressResponseDTO> findOne(@PathVariable Long id) {
+  public ResponseEntity<AddressDTO> findOne(@PathVariable Long id) {
     Address address = addressService.findOne(id);
-    if (address != null) {
-      return ResponseEntity.ok(convertToResponseDto(address));
+    if (address == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(convertToResponseDto(address));
   }
 
   @PostMapping
-  public ResponseEntity<AddressResponseDTO> create(@RequestBody @Valid AddressDTO addressDTO) {
+  public ResponseEntity<AddressDTO> create(@RequestBody @Valid AddressDTO addressDTO) {
     Address savedAddress = addressService.save(convertToEntity(addressDTO));
     return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(savedAddress));
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<AddressResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AddressDTO addressDTO) {
-    Address existingAddress = addressService.findOne(id);
-    if (existingAddress == null) {
+  public ResponseEntity<AddressDTO> update(@PathVariable Long id, @RequestBody @Valid AddressDTO addressDTO) {
+    Address address = addressService.findOne(id);
+    if (address == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     addressDTO.setId(id);
-    modelMapper.map(addressDTO, existingAddress);
-    Address updatedAddress = addressService.save(existingAddress);
+    modelMapper.map(addressDTO, address);
+    Address updatedAddress = addressService.save(address);
     return ResponseEntity.ok(convertToResponseDto(updatedAddress));
   }
 

@@ -2,7 +2,6 @@ package br.com.ravenstore.server.dto;
 
 import java.time.LocalDate;
 
-import br.com.ravenstore.server.model.User;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -40,26 +39,4 @@ public class UserDTO {
 
   @NotNull
   private String phoneNumber;
-
-  public void toDto(User user) {
-    this.id = user.getId();
-    this.name = user.getName();
-    this.email = user.getEmail();
-    this.password = user.getPassword();
-    this.cpf = user.getCpf();
-    this.birthOfDate = user.getBirthOfDate();
-    this.phoneNumber = user.getPhoneNumber();
-  }
-
-  public User fromDto() {
-    User user = new User();
-    user.setId(id);
-    user.setName(this.name);
-    user.setEmail(this.email);
-    user.setPassword(this.password);
-    user.setCpf(this.cpf);
-    user.setBirthOfDate(this.birthOfDate);
-    user.setPhoneNumber(this.phoneNumber);
-    return user;
-  }
 }

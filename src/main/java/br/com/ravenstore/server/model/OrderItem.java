@@ -29,6 +29,12 @@ public class OrderItem {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull
+  private Integer quantity;
+
+  @NotNull
+  private Double price;
+
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
@@ -36,12 +42,6 @@ public class OrderItem {
   @ManyToOne
   @JoinColumn(name = "products_sku_id", nullable = false)
   private ProductSku productSku;
-
-  @NotNull
-  private Integer quantity;
-
-  @NotNull
-  private Double price;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

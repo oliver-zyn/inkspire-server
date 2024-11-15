@@ -24,7 +24,7 @@ public class UserController {
   private final ModelMapper modelMapper;
 
   private UserResponseDTO convertToResponseDto(User user) {
-    return new UserResponseDTO(user);
+    return modelMapper.map(user, UserResponseDTO.class);
   }
 
   private User convertToEntity(UserDTO userDTO) {
@@ -54,6 +54,7 @@ public class UserController {
   @PutMapping("{id}")
   public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO userDTO) {
     User user = userService.findOne(id);
+
     if (user == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }

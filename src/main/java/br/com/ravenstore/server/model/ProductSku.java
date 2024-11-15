@@ -32,6 +32,18 @@ public class ProductSku {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull
+  private String imageUrl;
+
+  @NotNull
+  private Double price;
+
+  @NotNull
+  private Integer quantity;
+
+  @NotNull
+  private Boolean isDefault;
+
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false)
   @JsonIgnore
@@ -44,18 +56,6 @@ public class ProductSku {
   @ManyToOne
   @JoinColumn(name = "color_attribute_id")
   private ProductAttribute colorAttribute;
-
-  @NotNull
-  private String imageUrl;
-
-  @NotNull
-  private Double price;
-
-  @NotNull
-  private Integer quantity;
-
-  @NotNull
-  private Boolean isDefault;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

@@ -18,17 +18,9 @@ public class CategoryDTO {
   @NotNull
   private String imageUrl;
 
-  public void toDto(Category category) {
+  public CategoryDTO(Category category) {
     this.id = category.getId();
     this.name = category.getName();
     this.imageUrl = category.getImageUrl();
-  }
-
-  public Category fromDto() {
-    Category category = new Category();
-    category.setId(this.id);
-    category.setName(this.name);
-    category.setImageUrl(this.imageUrl);
-    return category;
   }
 }
