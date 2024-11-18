@@ -17,6 +17,7 @@ import br.com.ravenstore.server.dto.OrderDTO;
 import br.com.ravenstore.server.dto.OrderResponseDTO;
 import br.com.ravenstore.server.model.Order;
 import br.com.ravenstore.server.service.OrderService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -45,21 +46,20 @@ public class OrderController {
     return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(order));
   }
 
-  @GetMapping("user/{userId}")
-  public ResponseEntity<List<OrderResponseDTO>> findAllByUserId(@PathVariable Long userId) {
-    List<Order> orders = orderService.findByUserId(userId);
-    List<OrderResponseDTO> response = orders.stream()
+  @GetMapping("user/{id}")
+  public ResponseEntity<List<OrderResponseDTO>> findAllByUserId(@PathVariable Long id) {
+    List<OrderResponseDTO> orders = orderService.findByUserId(id).stream()
         .map(OrderResponseDTO::new)
         .collect(Collectors.toList());
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(orders);
   }
 
-  @GetMapping("{orderId}")
-  public ResponseEntity<OrderResponseDTO> findOne(@PathVariable Long orderId) {
-    Order order = orderService.findOne(orderId);
+  @GetMapping("{id}")
+  public ResponseEntity<OrderResponseDTO> findOne(@PathVariable Long id) {
+    Order order = orderService.findOne(id);
     if (order == null) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      throw new EntityNotFoundException("Pedido não encontrado com id: " + id);
     }
-    return ResponseEntity.ok(new OrderResponseDTO(order));
+    return ResponseEntity.ok(convertToResponseDto(order));
   }
 }

@@ -14,7 +14,7 @@ import br.com.ravenstore.server.model.Theme;
 import br.com.ravenstore.server.service.ThemeService;
 
 @RestController
-@RequestMapping("/api/themes")
+@RequestMapping("api/themes")
 public class ThemeController {
   private final ThemeService themeService;
   private final ModelMapper modelMapper;

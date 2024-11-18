@@ -6,12 +6,10 @@ import java.util.stream.Collectors;
 import br.com.ravenstore.server.model.Product;
 import br.com.ravenstore.server.model.ProductSku;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponseDTO {
@@ -28,6 +26,7 @@ public class ProductResponseDTO {
     this.description = product.getDescription();
     this.category = new CategoryDTO(product.getCategory());
     this.skus = product.getSkus();
-    this.themes = product.getThemes().stream().map(theme -> new ThemeDTO(theme.getId(), theme.getName())).collect(Collectors.toList());
+    this.themes = product.getThemes().stream().map(theme -> new ThemeDTO(theme.getId(), theme.getName()))
+        .collect(Collectors.toList());
   }
 }

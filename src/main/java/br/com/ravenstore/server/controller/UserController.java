@@ -14,6 +14,7 @@ import br.com.ravenstore.server.dto.UserDTO;
 import br.com.ravenstore.server.dto.UserResponseDTO;
 import br.com.ravenstore.server.model.User;
 import br.com.ravenstore.server.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -23,6 +24,11 @@ public class UserController {
   private final UserService userService;
   private final ModelMapper modelMapper;
 
+  public UserController(UserService userService, ModelMapper modelMapper) {
+    this.userService = userService;
+    this.modelMapper = modelMapper;
+  }
+
   private UserResponseDTO convertToResponseDto(User user) {
     return modelMapper.map(user, UserResponseDTO.class);
   }
@@ -31,18 +37,13 @@ public class UserController {
     return modelMapper.map(userDTO, User.class);
   }
 
-  public UserController(UserService userService, ModelMapper modelMapper) {
-    this.userService = userService;
-    this.modelMapper = modelMapper;
-  }
-
   @GetMapping("{id}")
   public ResponseEntity<UserResponseDTO> findOne(@PathVariable Long id) {
     User user = userService.findOne(id);
-    if (user != null) {
-      return ResponseEntity.ok(convertToResponseDto(user));
+    if (user == null) {
+      throw new EntityNotFoundException("Usuário não encontrado com id: " + id);
     }
-    return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(convertToResponseDto(user));
   }
 
   @PostMapping
@@ -54,9 +55,8 @@ public class UserController {
   @PutMapping("{id}")
   public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO userDTO) {
     User user = userService.findOne(id);
-
     if (user == null) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      throw new EntityNotFoundException("Usuário não encontrado com id: " + id);
     }
     userDTO.setId(id);
     User updatedUser = userService.save(convertToEntity(userDTO));

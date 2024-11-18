@@ -20,7 +20,7 @@ public class OrderDTO {
   private String status;
 
   @NotNull
-	private Long userId;
+  private Long userId;
 
   @NotNull
   private Long shippingAddressId;

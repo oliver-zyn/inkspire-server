@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItemDTO {
-    private Long id;
+	private Long id;
 
-    @NotNull
-    private Integer quantity;
+	@NotNull
+	private Integer quantity;
 
-    @NotNull
-    private Long productSkuId;
+	@NotNull
+	private Long productSkuId;
 }

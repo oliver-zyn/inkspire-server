@@ -5,10 +5,10 @@ import br.com.ravenstore.server.dto.ProductResponseDTO;
 import br.com.ravenstore.server.model.Product;
 import br.com.ravenstore.server.model.ProductSku;
 import br.com.ravenstore.server.service.ProductService;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Sort;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("api/products")
 public class ProductController {
   private final ProductService productService;
   private final ModelMapper modelMapper;
@@ -64,14 +64,14 @@ public class ProductController {
     }
 
     return ResponseEntity.ok(productService.filterProductsPaginated(
-      categoryIds, themeIds, color, sizeAttr, minPrice, maxPrice, pageRequest).map(this::convertToListResponseDto));
+        categoryIds, themeIds, color, sizeAttr, minPrice, maxPrice, pageRequest).map(this::convertToListResponseDto));
   }
 
   @GetMapping("{id}")
   public ResponseEntity<ProductResponseDTO> findOne(@PathVariable Long id) {
     Product product = productService.findOne(id);
     if (product == null) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      throw new EntityNotFoundException("Produto não encontrado com id: " + id);
     }
     ProductResponseDTO productResponse = convertToResponseDto(product);
     productResponse.setSkus(product.getSkus().stream()

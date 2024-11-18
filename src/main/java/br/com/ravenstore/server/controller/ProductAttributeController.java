@@ -14,7 +14,7 @@ import br.com.ravenstore.server.model.ProductAttribute;
 import br.com.ravenstore.server.service.ProductAttributeService;
 
 @RestController
-@RequestMapping("/api/attributes")
+@RequestMapping("api/attributes")
 public class ProductAttributeController {
   private final ProductAttributeService productAttributeService;
   private final ModelMapper modelMapper;
@@ -29,10 +29,10 @@ public class ProductAttributeController {
   }
 
   @GetMapping
-    public ResponseEntity<List<ProductAttributeDTO>> findAll() {
-      List<ProductAttributeDTO> productAttributes = productAttributeService.findAll().stream()
-          .map(this::convertToResponseDto)
-          .collect(Collectors.toList());
-      return ResponseEntity.ok(productAttributes);
-    }
+  public ResponseEntity<List<ProductAttributeDTO>> findAll() {
+    List<ProductAttributeDTO> productAttributes = productAttributeService.findAll().stream()
+        .map(this::convertToResponseDto)
+        .collect(Collectors.toList());
+    return ResponseEntity.ok(productAttributes);
+  }
 }

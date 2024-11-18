@@ -1,6 +1,9 @@
 package br.com.ravenstore.server.error;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -28,5 +31,34 @@ public class ExceptionHandlerAdvice {
         "validation error",
         request.getServletPath(),
         validationErrors);
+  }
+
+  @ExceptionHandler({ IllegalArgumentException.class })
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ApiError handleIllegalArgumentException(IllegalArgumentException exception, HttpServletRequest request) {
+    return new ApiError(
+        HttpStatus.BAD_REQUEST.value(),
+        exception.getMessage(),
+        request.getServletPath());
+  }
+
+  @ExceptionHandler({ EntityNotFoundException.class })
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ApiError handleEntityNotFoundException(
+      EntityNotFoundException exception,
+      HttpServletRequest request) {
+
+    return new ApiError(
+        HttpStatus.NOT_FOUND.value(),
+        exception.getMessage(),
+        request.getServletPath());
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public ApiError handleDataIntegrityViolationException(DataIntegrityViolationException ex,
+      HttpServletRequest request) {
+    String message = "E-mail ou CPF já está cadastrado";
+    return new ApiError(HttpStatus.BAD_REQUEST.value(), message, request.getServletPath());
   }
 }

@@ -20,7 +20,8 @@ public class ApiError {
     this.url = url;
   }
 
-  public ApiError(final int status, final String message, final String url, final Map<String, String> validationErrors) {
+  public ApiError(final int status, final String message, final String url,
+      final Map<String, String> validationErrors) {
     this.status = status;
     this.message = message;
     this.url = url;
