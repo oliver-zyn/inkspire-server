@@ -60,6 +60,10 @@ public class WebSecurity {
                 .requestMatchers(antMatcher(HttpMethod.GET, "/api/categories/**")).permitAll()
                 .requestMatchers(antMatcher(HttpMethod.GET, "/api/attributes/**")).permitAll()
                 .requestMatchers(antMatcher(HttpMethod.GET, "/api/themes/**")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.GET, "/swagger-ui/index.html")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.GET, "/swagger-ui.html")).permitAll()
+                .requestMatchers(antMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
                 .anyRequest().authenticated()
         );
         http.authenticationManager(authenticationManager)

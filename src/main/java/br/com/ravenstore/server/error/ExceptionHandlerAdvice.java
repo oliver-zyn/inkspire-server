@@ -58,7 +58,7 @@ public class ExceptionHandlerAdvice {
   @ResponseStatus(HttpStatus.CONFLICT)
   public ApiError handleDataIntegrityViolationException(DataIntegrityViolationException ex,
       HttpServletRequest request) {
-    String message = "E-mail ou CPF já está cadastrado";
+    String message = ex.getRootCause().getMessage();
     return new ApiError(HttpStatus.BAD_REQUEST.value(), message, request.getServletPath());
   }
 }

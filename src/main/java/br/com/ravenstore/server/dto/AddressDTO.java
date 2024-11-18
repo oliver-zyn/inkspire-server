@@ -33,7 +33,7 @@ public class AddressDTO {
 	private String complement;
 
 	@NotNull
-	@Pattern(regexp = "\\d{8}", message = "O CEP deve conter exatamente 8 números.")
+	@Pattern(regexp = "\\d{8}", message = "O CEP deve conter exatamente 8 números")
 	private String zipCode;
 
 	@NotNull
