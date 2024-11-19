@@ -19,12 +19,18 @@ public class UserResponseDTO {
 	private Long id;
 	private String name;
 	private String email;
+	private String cpf;
+	private String birthOfDate;
+	private String phoneNumber;
 	private Set<AuthorityResponseDTO> authorities;
 
 	public UserResponseDTO(User user) {
 		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
+		this.cpf = user.getCpf();
+		this.birthOfDate = user.getBirthOfDate().toString();
+		this.phoneNumber = user.getPhoneNumber();
 		this.authorities = new HashSet<>();
 		for (GrantedAuthority authority : user.getAuthorities()) {
 			authorities.add(new AuthorityResponseDTO(authority.getAuthority()));
