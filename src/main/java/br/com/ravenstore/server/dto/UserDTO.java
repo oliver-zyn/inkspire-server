@@ -33,10 +33,4 @@ public class UserDTO {
   @NotNull
   @Column(unique = true)
   private String cpf;
-
-  @NotNull
-  private LocalDate birthOfDate;
-
-  @NotNull
-  private String phoneNumber;
 }

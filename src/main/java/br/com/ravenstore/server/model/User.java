@@ -59,12 +59,6 @@ public class User implements UserDetails {
   @Column(unique = true)
   private String cpf;
 
-  @NotNull
-  private LocalDate birthOfDate;
-
-  @NotNull
-  private String phoneNumber;
-
   @CreationTimestamp
   private LocalDateTime createdAt;
 

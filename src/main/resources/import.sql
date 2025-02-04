@@ -18,7 +18,7 @@ INSERT INTO tb_product_sku (product_id, size_attribute_id, color_attribute_id, i
 INSERT INTO tb_product_sku (product_id, size_attribute_id, color_attribute_id, image_url, price, quantity, is_default, created_at, updated_at) VALUES (4, 4, 1, 'https://example.com/moletom_preto_rock.png', 120.00, 25, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO tb_product_sku (product_id, size_attribute_id, color_attribute_id, image_url, price, quantity, is_default, created_at, updated_at) VALUES (5, 3, 1, 'https://example.com/camiseta_anime_azul.png', 59.90, 40, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO tb_user (name, email, password, cpf, birth_of_date, phone_number, created_at, updated_at) VALUES ('user test', 'user@test.com', '$2a$10$9dykYZs3J2wWSKpIGFTvpeToaqc8mjuiokx3bJlfvHny1eJxxb99W', '93756473728', '2000-12-20', '46955452123', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO tb_user (name, email, password, cpf, created_at, updated_at) VALUES ('user test', 'user@test.com', '$2a$10$9dykYZs3J2wWSKpIGFTvpeToaqc8mjuiokx3bJlfvHny1eJxxb99W', '93756473728', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO tb_theme (name, created_at, updated_at) VALUES ('Rock', current_timestamp, current_timestamp);
 INSERT INTO tb_theme (name, created_at, updated_at) VALUES ('Anime', current_timestamp, current_timestamp);

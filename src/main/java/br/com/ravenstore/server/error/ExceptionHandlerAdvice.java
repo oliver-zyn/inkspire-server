@@ -33,6 +33,28 @@ public class ExceptionHandlerAdvice {
         validationErrors);
   }
 
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public ApiError handleDataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
+      String message = ex.getRootCause().getMessage();
+      
+      Map<String, String> validationErrors = new HashMap<>();
+      
+      if (message.contains("TB_USER(CPF")) {
+          validationErrors.put("cpf", "Este CPF já está cadastrado");
+      }
+      if (message.contains("TB_USER(EMAIL")) {
+          validationErrors.put("email", "Este e-mail já está cadastrado");
+      }
+      
+      return new ApiError(
+          HttpStatus.BAD_REQUEST.value(),
+          "Erro de integridade de dados",
+          request.getServletPath(),
+          validationErrors
+      );
+  }
+
   @ExceptionHandler({ IllegalArgumentException.class })
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ApiError handleIllegalArgumentException(IllegalArgumentException exception, HttpServletRequest request) {
@@ -52,13 +74,5 @@ public class ExceptionHandlerAdvice {
         HttpStatus.NOT_FOUND.value(),
         exception.getMessage(),
         request.getServletPath());
-  }
-
-  @ExceptionHandler(DataIntegrityViolationException.class)
-  @ResponseStatus(HttpStatus.CONFLICT)
-  public ApiError handleDataIntegrityViolationException(DataIntegrityViolationException ex,
-      HttpServletRequest request) {
-    String message = ex.getRootCause().getMessage();
-    return new ApiError(HttpStatus.BAD_REQUEST.value(), message, request.getServletPath());
   }
 }
