@@ -1,7 +1,5 @@
 package br.com.ravenstore.server.dto;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
