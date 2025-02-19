@@ -36,7 +36,6 @@ public class AddressDTO {
 	@Pattern(regexp = "\\d{8}", message = "O CEP deve conter exatamente 8 números")
 	private String zipCode;
 
-	@NotNull
 	private Long userId;
 
 	public AddressDTO(Address address) {

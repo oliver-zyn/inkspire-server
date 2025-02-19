@@ -19,7 +19,6 @@ public class OrderDTO {
   @NotNull
   private String status;
 
-  @NotNull
   private Long userId;
 
   @NotNull

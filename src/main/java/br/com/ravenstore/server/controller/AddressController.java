@@ -3,11 +3,13 @@ package br.com.ravenstore.server.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.ravenstore.server.dto.AddressCepDTO;
 import br.com.ravenstore.server.dto.AddressDTO;
 import br.com.ravenstore.server.model.Address;
+import br.com.ravenstore.server.model.User;
 import br.com.ravenstore.server.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -65,10 +67,17 @@ public class AddressController {
   }
 
   @PostMapping
-  public ResponseEntity<AddressDTO> create(@RequestBody @Valid AddressDTO addressDTO) {
-    Address savedAddress = addressService.save(convertToEntity(addressDTO));
-    return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(savedAddress));
+  public ResponseEntity<AddressDTO> create(@RequestBody @Valid AddressDTO addressDTO,
+                                          @AuthenticationPrincipal User authenticatedUser) {
+      Long userId = authenticatedUser.getId();
+
+      addressDTO.setUserId(userId);
+      Address address = convertToEntity(addressDTO);
+
+      Address savedAddress = addressService.save(address);
+      return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(savedAddress));
   }
+
 
   @PutMapping("{id}")
   public ResponseEntity<AddressDTO> update(@PathVariable Long id, @RequestBody @Valid AddressDTO addressDTO) {

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ravenstore.server.dto.AddressDTO;
 import br.com.ravenstore.server.dto.OrderDTO;
 import br.com.ravenstore.server.dto.OrderResponseDTO;
+import br.com.ravenstore.server.model.Address;
 import br.com.ravenstore.server.model.Order;
+import br.com.ravenstore.server.model.User;
 import br.com.ravenstore.server.service.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -41,9 +45,14 @@ public class OrderController {
   }
 
   @PostMapping("checkout")
-  public ResponseEntity<OrderResponseDTO> create(@RequestBody @Valid OrderDTO orderDTO) {
-    Order order = orderService.save(convertToEntity(orderDTO));
-    return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(order));
+  public ResponseEntity<OrderResponseDTO> create(@RequestBody @Valid OrderDTO orderDTO,
+      @AuthenticationPrincipal User authenticatedUser) {
+    Long userId = authenticatedUser.getId();
+    orderDTO.setUserId(userId);
+    Order order = convertToEntity(orderDTO);
+
+    Order savedOrder = orderService.save(order);
+    return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDto(savedOrder));
   }
 
   @GetMapping("user/{id}")

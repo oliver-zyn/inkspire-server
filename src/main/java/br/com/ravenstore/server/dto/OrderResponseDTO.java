@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +22,7 @@ public class OrderResponseDTO {
 	private UserResponseDTO user;
 	private AddressDTO shippingAddress;
 	private List<OrderItemResponseDTO> items;
+	private LocalDateTime created_at;
 
 	public OrderResponseDTO(Order order) {
 		this.id = order.getId();
@@ -28,6 +31,7 @@ public class OrderResponseDTO {
 		this.total = order.getTotal();
 		this.user = new UserResponseDTO(order.getUser());
 		this.shippingAddress = new AddressDTO(order.getShippingAddress());
+		this.created_at = order.getCreatedAt();
 		this.items = (order.getOrderItems() != null)
 				? order.getOrderItems().stream().map(OrderItemResponseDTO::new).collect(Collectors.toList())
 				: new ArrayList<>();
